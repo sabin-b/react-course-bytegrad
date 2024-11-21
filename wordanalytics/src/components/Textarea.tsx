@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import Warning from "./Warning";
+import WarningMessage from "./Warning";
 
-export default function Textarea() {
+interface TextareaProps {
+  onChange: (value: string) => void;
+  value: string;
+}
+export default function Textarea({ value, onChange }: TextareaProps) {
   const ref = useRef<HTMLTextAreaElement | null>(null);
-  const [value, setValue] = useState<string>("");
-  const [showWarning, setShowWarning] = useState<boolean>(false);
-  //? make text area to focus
+  const [warningText, setWarningText] = useState<string>("");
+  //? make text area to focus initially
   useEffect(() => {
     if (ref.current) {
       ref.current.focus();
@@ -17,16 +20,22 @@ export default function Textarea() {
     //? input value
     let newText = e.target.value;
 
-    //? check input has script tag
+    //? check input has script tag and @
     if (newText.includes("<script>")) {
-      setShowWarning(true);
-      // newText = newText.replace("<script>", " ");
-      return;
+      setWarningText("script tag found !");
+      newText = newText.replace("<script>", "");
+    } else if (newText.includes("@")) {
+      setWarningText("@ symbol found !");
+      newText = newText.replace("@", "");
     }
 
-    //? condition not met update the state
-    setValue(newText);
-    setShowWarning(false);
+    //? update the state
+    onChange(newText);
+
+    //? 5 seconds after remove warning text
+    setTimeout(() => {
+      setWarningText("");
+    }, 5000);
   };
 
   return (
@@ -39,7 +48,7 @@ export default function Textarea() {
         placeholder="enter your text"
         spellCheck={false}
       />
-      {showWarning ? <Warning /> : null}
+      {warningText.length ? <WarningMessage warningText={warningText} /> : null}
     </React.Fragment>
   );
 }
