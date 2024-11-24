@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
-import { Item } from "../types/types";
+import useItemsContext from "../hooks/useItemsContext";
+import { ItemProviderType } from "../types/types";
 import Button from "./Button";
 
-interface AddItemFormProps {
-  onAddItem: (newItem: Item) => void;
-}
-
-export default function AddItemForm({ onAddItem }: AddItemFormProps) {
+export default function AddItemForm() {
   const [item, setItem] = useState<string>("");
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const data = useItemsContext();
+  const { handleAddItem } = data as ItemProviderType;
 
   //? handle form submit
   function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -28,7 +28,7 @@ export default function AddItemForm({ onAddItem }: AddItemFormProps) {
     }
 
     //? otherwise proceed next steps
-    onAddItem({ id: Date.now(), name: item, packed: false });
+    handleAddItem?.({ id: Date.now(), name: item, packed: false });
 
     //? reset the state
     setItem("");

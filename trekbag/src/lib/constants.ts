@@ -1,27 +1,4 @@
-import { ActionButton, Item } from "../types/types";
-
-export const actionButtons: ActionButton[] = [
-  {
-    btnType: "secondary",
-    className: "capitalize btn",
-    label: "Mark As All Complete",
-  },
-  {
-    btnType: "secondary",
-    className: "capitalize btn",
-    label: "Mark As All InComplete",
-  },
-  {
-    btnType: "secondary",
-    className: "capitalize btn",
-    label: " Reset to initial",
-  },
-  {
-    btnType: "secondary",
-    className: "capitalize btn",
-    label: "Remove all items",
-  },
-];
+import { Item } from "../types/types";
 
 export const initialItems: Item[] = [
   {
