@@ -1,6 +1,6 @@
-import Container from "./components/container";
+import Container from "./components/Container";
 import Footer from "./components/Footer";
-import HashTag from "./components/HashTag";
+import HashTag from "./components/hashtag/HashTag";
 
 export default function App() {
   return (

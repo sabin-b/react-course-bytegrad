@@ -1,43 +1,40 @@
-import { FeedBackItem } from "../../types/types";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { getSelectedCompany } from "../../features/feedback.slice";
+import useFeedbacks from "../../hooks/useFeedbacks";
+import Spinner from "../Spinner";
 import FeedbackItem from "./FeedbackItem";
 
-const feedBacks: FeedBackItem[] = [
-  {
-    badgeLetter: "B",
-    daysBefore: 4,
-    hashTag: "sabin",
-    text: "Lorem ipsum dolor sit amet consectetur adipiscing elit parturient morbi, habitasse integer",
-    upvoteCount: 573,
-  },
-  {
-    badgeLetter: "B",
-    daysBefore: 4,
-    hashTag: "sabin",
-    text: "Lorem ipsum dolor sit amet consectetur adipiscing elit parturient morbi, habitasse integer",
-    upvoteCount: 573,
-  },
-  {
-    badgeLetter: "B",
-    daysBefore: 4,
-    hashTag: "sabin",
-    text: "Lorem ipsum dolor sit amet consectetur adipiscing elit parturient morbi, habitasse integer",
-    upvoteCount: 573,
-  },
-  {
-    badgeLetter: "B",
-    daysBefore: 0,
-    hashTag: "sabin",
-    text: "Lorem ipsum dolor sit amet consectetur adipiscing elit parturient morbi, habitasse integer",
-    upvoteCount: 573,
-  },
-];
-
 export default function FeedbackList() {
+  const { data, isLoading, isError } = useFeedbacks();
+
+  const seletedCompany = useSelector(getSelectedCompany);
+
+  const filteredFeedbacks = useMemo(
+    () =>
+      !isLoading
+        ? data?.feedbacks.filter((feed) => {
+            const matcher =
+              seletedCompany.toLowerCase() === feed.company.toLowerCase() ||
+              seletedCompany === "";
+            return matcher;
+          })
+        : [],
+    [data?.feedbacks, isLoading, seletedCompany]
+  );
+
   return (
-    <ol className="feedback-list">
-      {feedBacks.map((feedback) => (
-        <FeedbackItem key={feedback.upvoteCount.toString()} {...feedback} />
-      ))}
+    <ol className="feedback-list rela">
+      {isLoading && (
+        <div className="mt-8">
+          <Spinner />
+        </div>
+      )}
+      {!isLoading &&
+        !isError &&
+        filteredFeedbacks.map((feedback) => (
+          <FeedbackItem key={feedback.upvoteCount.toString()} {...feedback} />
+        ))}
     </ol>
   );
 }

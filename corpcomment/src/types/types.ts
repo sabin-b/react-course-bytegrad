@@ -1,7 +1,8 @@
-export type FeedBackItem = {
-  upvoteCount: number;
+export type FeedBackItemType = {
+  id: number;
+  company: string;
   badgeLetter: string;
-  hashTag: string;
+  upvoteCount: number;
+  daysAgo: number;
   text: string;
-  daysBefore: number;
 };

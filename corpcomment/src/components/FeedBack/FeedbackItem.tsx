@@ -1,28 +1,47 @@
 import { TriangleUpIcon } from "@radix-ui/react-icons";
-import { FeedBackItem } from "../../types/types";
+import React from "react";
+import cn from "../../lib/utils";
+import { FeedBackItemType } from "../../types/types";
 
 export default function FeedbackItem({
   badgeLetter,
-  daysBefore,
-  hashTag,
+  company,
+  daysAgo,
   text,
   upvoteCount,
-}: FeedBackItem) {
+}: FeedBackItemType) {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [upvoteCountState, setUpdateUpVoteCount] = React.useState(upvoteCount);
+
+  function handleUpvoteCount(e: React.MouseEvent<HTMLButtonElement>) {
+    //? prevent event bubbling
+    e.stopPropagation();
+
+    //? update
+    setUpdateUpVoteCount((prev) => prev + 1);
+
+    //? disabled the button
+    e.currentTarget.disabled = true;
+  }
+
   return (
-    <li className="feedback">
-      <button>
+    <li
+      className={cn("feedback", open && "feedback--expand")}
+      onClick={() => setOpen((prev) => !prev)}
+    >
+      <button onClick={handleUpvoteCount}>
         <TriangleUpIcon />
-        <span>{upvoteCount}</span>
+        <span>{upvoteCountState}</span>
       </button>
 
       <div>
         <p>{badgeLetter}</p>
       </div>
       <div>
-        <p>{hashTag}</p>
+        <p>{company}</p>
         <p>{text}</p>
       </div>
-      <p>{daysBefore === 0 ? "New" : daysBefore.toString().concat("d")}</p>
+      <p>{daysAgo === 0 ? "New" : daysAgo.toString().concat("d")}</p>
     </li>
   );
 }
