@@ -13,7 +13,7 @@ export default function JobItemContent() {
     return (
       <section className="job-details">
         <div style={{ height: "100%" }}>
-          <Spinner />;
+          <Spinner />
         </div>
       </section>
     );
@@ -39,7 +39,7 @@ export default function JobItemContent() {
                 {data?.jobItem?.daysAgo.toString().concat("d")}
               </time>
 
-              <BookmarkIcon />
+              <BookmarkIcon jobId={data?.jobItem?.id} />
             </div>
           </div>
 

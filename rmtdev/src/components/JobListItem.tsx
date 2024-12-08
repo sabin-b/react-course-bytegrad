@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addActiveJobId, getActiveJobId } from "../features/job.slice";
 import { AppDispatch } from "../store/store";
-import { JobItem } from "../types/types";
+import { JobItem, JobItemSingle } from "../types/types";
 import BookmarkIcon from "./BookmarkIcon";
 
-type JobListItemProps = JobItem;
+type JobListItemProps = JobItem | JobItemSingle;
 export default function JobListItem({
   id,
   title,
@@ -42,7 +42,7 @@ export default function JobListItem({
         </div>
 
         <div className="job-item__right">
-          <BookmarkIcon />
+          <BookmarkIcon jobId={id} />
           <time className="job-item__time">
             {daysAgo?.toString().concat("d")}
           </time>

@@ -17,3 +17,9 @@ export type JobItemSingle = JobItem & {
   coverImgURL: string;
   companyURL: string;
 };
+
+//? pagination
+export type PaginationDirection = "previous" | "next";
+
+//? sorting
+export type SortBy = "relevance" | "recent";
