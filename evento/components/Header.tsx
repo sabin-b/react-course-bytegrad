@@ -1,6 +1,6 @@
 import { pageLinks } from "@/config/site";
-import Link from "next/link";
 import Logo from "./Logo";
+import MenuLink from "./MenuLink";
 
 export default function Header() {
   return (
@@ -9,14 +9,10 @@ export default function Header() {
       <Logo />
 
       {/* nav links */}
-      <nav>
-        <ul className="flex items-center gap-x-6">
-          {pageLinks.map((link) => (
-            <li key={link.path}>
-              <Link className="text-white/40 hover:text-white" href={link.path}>
-                {link.label}
-              </Link>
-            </li>
+      <nav className="h-full">
+        <ul className="h-full relative flex items-center gap-x-6">
+          {pageLinks.slice(0, 2).map(({ label, path }) => (
+            <MenuLink key={path} label={label} path={path} />
           ))}
         </ul>
       </nav>

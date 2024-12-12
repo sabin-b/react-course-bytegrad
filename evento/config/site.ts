@@ -9,4 +9,12 @@ export const pageLinks: PageLink[] = [
     path: "/events/all",
     label: "All Events",
   },
+  {
+    path: "/terms-conditions",
+    label: "Terms & Conditions",
+  },
+  {
+    path: "/privacy-policy",
+    label: "Privacy Policy",
+  },
 ];

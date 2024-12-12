@@ -1,14 +1,18 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-type H1Props = React.HTMLAttributes<HTMLHeadingElement> & {
-  size?: "small" | "big";
-};
-
+type H1Props = React.HTMLAttributes<HTMLHeadingElement>;
 const H1 = React.forwardRef<HTMLHeadingElement, H1Props>(
-  ({ className, children, size, ...props }, ref) => {
+  ({ className, children, ...props }, ref) => {
     return (
-      <h1 className={cn(className, size)} ref={ref} {...props}>
+      <h1
+        className={cn(
+          "text-3xl lg:text-6xl font-bold tracking-tight",
+          className
+        )}
+        ref={ref}
+        {...props}
+      >
         {children}
       </h1>
     );
