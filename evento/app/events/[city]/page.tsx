@@ -18,7 +18,7 @@ const getEvents = cache(async (city: string): Promise<Event[]> => {
     }
   );
 
-  return response.data;
+  return response.data || [];
 });
 
 async function EventsPage({ params }: EventsPageProps) {
